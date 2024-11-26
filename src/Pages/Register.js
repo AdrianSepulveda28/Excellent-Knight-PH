@@ -8,16 +8,26 @@ const Register = () => {
     fullName: "",
     email: "",
     password: "",
-    idNumber: "",
+    controlNumber: "", // Changed from idNumber to controlNumber
     plateNumber: "",
-    motorcycleModel: "",  // Added motorcycle model field
+    motorcycleModel: "",
+    motorcycleVersion: "",
   });
+
+  // Define the versions for each motorcycle model
+  const motorcycleVersions = {
+    "Honda Click": ["Click 125i", "Click 150i", "Click 160"],
+    "Honda Beat": ["Beat Street", "Beat Fashion Sport"],
+    "Honda Pcx": ["PCX 125", "PCX 150", "PCX Hybrid"],
+    "Honda Adv": ["ADV 150", "ADV 160"],
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
+      ...(name === "motorcycleModel" && { motorcycleVersion: "" }), // Reset version if model changes
     });
   };
 
@@ -96,13 +106,13 @@ const Register = () => {
         <div className="form-row">
           <div className="form-group">
             <label>
-              <i className="fas fa-id-card"></i> ID Number
+              <i className="fas fa-id-card"></i> Control Number
             </label>
             <input
               type="text"
-              name="idNumber"
-              placeholder="Enter ID number"
-              value={formData.idNumber}
+              name="controlNumber" // Changed name to controlNumber
+              placeholder="Enter control number"
+              value={formData.controlNumber} // Updated value to match controlNumber
               onChange={handleChange}
               required
             />
@@ -127,16 +137,45 @@ const Register = () => {
             <label>
               <i className="fas fa-motorcycle"></i> Motorcycle Model
             </label>
-            <input
-              type="text"
+            <select
               name="motorcycleModel"
-              placeholder="Enter motorcycle model"
               value={formData.motorcycleModel}
               onChange={handleChange}
               required
-            />
+              className="motorcycle-model-select"
+            >
+              <option value="">Select Motorcycle Model</option>
+              <option value="Honda Click">Honda Click</option>
+              <option value="Honda Beat">Honda Beat</option>
+              <option value="Honda Pcx">Honda Pcx</option>
+              <option value="Honda Adv">Honda Adv</option>
+            </select>
           </div>
         </div>
+
+        {formData.motorcycleModel && (
+          <div className="form-row">
+            <div className="form-group">
+              <label>
+                <i className="fas fa-cogs"></i> Motorcycle Version
+              </label>
+              <select
+                name="motorcycleVersion"
+                value={formData.motorcycleVersion}
+                onChange={handleChange}
+                required
+                className="motorcycle-version-select"
+              >
+                <option value="">Select Version</option>
+                {motorcycleVersions[formData.motorcycleModel].map((version) => (
+                  <option key={version} value={version}>
+                    {version}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
 
         <button type="submit">Register</button>
 

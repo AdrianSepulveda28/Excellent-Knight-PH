@@ -50,6 +50,7 @@ html, body {
     justify-content: space-between;
     gap: 20px;
 }
+
 .form-group {
     flex: 1;
     display: flex;
@@ -61,17 +62,37 @@ html, body {
     margin-bottom: 0.5rem;
 }
 
-.register-form input {
+/* Consolidated styling for input and select elements */
+.register-form input,
+.register-form select {
     padding: 0.8rem;
     border: 1px solid var(--border-color);
     border-radius: 30px;
     outline: none;
     transition: border-color 0.3s ease;
-    margin-bottom: 1rem; /* Adds spacing below each input field */
+    margin-bottom: 1rem;
+    font-size: 16px;
+    width: 100%; /* Ensure uniform width */
+    box-sizing: border-box; /* Prevent sizing issues */
+    background-color: white; /* Consistent background for select */
+    appearance: none; /* Removes native dropdown styles for consistency */
 }
 
-.register-form input:focus {
-    border-color: var(--primary-color);
+/* Motorcycle model dropdown specific styles */
+.motorcycle-model-select {
+    background-color: #f9f9f9; /* Slightly different color for model */
+    color: var(--text-color);
+}
+
+/* Motorcycle version dropdown specific styles */
+.motorcycle-version-select {
+    background-color: #ffffff;
+    color: var(--text-color);
+}
+
+.register-form input:focus,
+.register-form select:focus {
+    border-color: var(--primary-color); /* Match input focus style */
 }
 
 .register-form button {
@@ -123,7 +144,8 @@ html, body {
         font-size: 20px;
     }
 
-    .register-form input {
+    .register-form input,
+    .register-form select {
         padding: 0.7rem;
         font-size: 14px;
     }
@@ -132,6 +154,7 @@ html, body {
         padding: 0.7rem;
     }
 }
+
 @media (max-width: 480px) {
     .register-form h1 {
         font-size: 18px;
