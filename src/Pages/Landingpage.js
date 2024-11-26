@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import logo from './excellent-knights-ph.png'; // './' refers to the same directory
 import './LandingPage.css';
 
 function LandingPage() {
@@ -16,7 +17,7 @@ function LandingPage() {
         <div className="landing-container">
             <nav className="navbar">
                 <div className="navbar-logo">
-                    {/* Logo or branding */}
+                    <img src={logo} alt="Excellent Knights PH Logo" className="logo-img" />
                 </div>
                 <div className="navbar-links-left">
                     <button className="login-btn" onClick={handleLogin}>

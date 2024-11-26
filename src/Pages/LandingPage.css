@@ -8,7 +8,7 @@
     color: #fff;
     position: absolute;
     top: 0;
-    left: -1;
+    left: 0; /* Fixed from -1 */
     right: 0;
 }
 
@@ -19,33 +19,36 @@
 .navbar-links-left {
     display: flex;
     align-items: center;
-    
 }
 
 .navbar-links-right {
     display: flex;
     align-items: center;
-    margin-left: auto; /* This
-     pushes the right-aligned buttons to the far right */
+    margin-left: auto; /* Pushes buttons to the far right */
 }
 
-.get-started-btn, .login-btn, .register-btn {
+.get-started-btn,
+.login-btn,
+.register-btn {
     background-color: #fff;
     color: #333;
-    padding: 10px 20px; /* Increased padding for better button size */
+    padding: 10px 20px; /* Adjusted padding for button size */
     border-radius: 40px;
     font-size: 1em;
     border: none;
     cursor: pointer;
-    margin-left: 10px; /* Adjust the space between buttons */
+    margin-left: 10px; /* Adjusts space between buttons */
     transition: background-color 0.3s ease; /* Smooth hover transition */
-    
 }
-.login-btn, .register-btn {
-    margin-left: 20px;
 
-.get-started-btn:hover, .login-btn:hover, .register-btn:hover {
+.get-started-btn:hover,
+.login-btn:hover,
+.register-btn:hover {
     background-color: #555;
     color: #fff;
 }
+
+.logo-img {
+    width: 50px; /* Adjust width to make it smaller */
+    height: auto; /* Maintains aspect ratio */
 }
