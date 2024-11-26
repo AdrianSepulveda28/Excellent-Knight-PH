@@ -50,12 +50,17 @@
 .landing-content h1 {
     font-size: 36px;
     color: #fff; /* White text for contrast */
+    font-size: xx-large;
+    font-style: italic;
 }
 
 .landing-content p {
     font-size: 18px;
     color: #e0e0e0; /* Light grey text */
     margin: 20px 0;
+    font-size: x-large;
+    font-style: italic;
+
 }
 
 .cta-buttons {
