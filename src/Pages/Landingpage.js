@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import logo from './excellent-knights-ph.png'; // './' refers to the same directory
+import logo from './assessment/excellent-knights-ph.png'; // './' refers to the same directory
 import './LandingPage.css';
 
 function LandingPage() {
