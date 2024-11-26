@@ -10,6 +10,7 @@ const Register = () => {
     password: "",
     idNumber: "",
     plateNumber: "",
+    motorcycleModel: "",  // Added motorcycle model field
   });
 
   const handleChange = (e) => {
@@ -115,6 +116,22 @@ const Register = () => {
               name="plateNumber"
               placeholder="Enter plate number"
               value={formData.plateNumber}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label>
+              <i className="fas fa-motorcycle"></i> Motorcycle Model
+            </label>
+            <input
+              type="text"
+              name="motorcycleModel"
+              placeholder="Enter motorcycle model"
+              value={formData.motorcycleModel}
               onChange={handleChange}
               required
             />
