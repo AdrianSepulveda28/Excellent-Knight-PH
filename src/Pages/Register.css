@@ -23,7 +23,7 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 2rem;
+    padding: 1rem;
     background-image: url('./assessment/click.jpg');
     background-size: cover;
     background-position: center;

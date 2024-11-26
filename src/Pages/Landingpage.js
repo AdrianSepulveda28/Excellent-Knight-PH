@@ -15,21 +15,22 @@ function LandingPage() {
 
     return (
         <div className="landing-container">
-    <nav className="navbar">
-        <div className="navbar-logo">
-            <img src={logo} alt="Excellent Knights PH Logo" className="logo-img" /> {/* Logo first */}
-            <div className="club-name">Excellent Knights PH</div> {/* Club name after the logo */}
+            <nav className="navbar">
+                <div className="navbar-logo">
+                    <img src={logo} alt="Excellent Knights PH Logo" className="logo-img" />
+                    <div className="club-name">Excellent Knights PH</div>
+                </div>
+            </nav>
+
+            <div className="landing-content">
+                <h1>Welcome to Excellent Knights PH</h1>
+                <p>Join our community of motorcycle enthusiasts, stay updated with events, and connect with other riders who share your passion.</p>
+                <div className="cta-buttons">
+                    <button onClick={handleRegister}>Join Now</button>
+                    <button onClick={handleLogin}>Already a Member? Log In</button>
+                </div>
+            </div>
         </div>
-        <div className="navbar-links-left">
-            <button className="login-btn" onClick={handleLogin}>
-                Log In
-            </button>
-            <button className="register-btn" onClick={handleRegister}>
-                Register
-            </button>
-        </div>
-    </nav>
-</div>
     );
 }
 
