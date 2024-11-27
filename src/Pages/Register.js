@@ -20,6 +20,11 @@ const Register = () => {
     "Honda Beat": ["Beat Street", "Beat Fashion Sport"],
     "Honda Pcx": ["PCX 125", "PCX 150", "PCX Hybrid"],
     "Honda Adv": ["ADV 150", "ADV 160"],
+    Dio: ["Dio 110", "Dio 125"],
+    Genio: ["Genio 110", "Genio 125"],
+    Airblade: ["Airblade 125", "Airblade 150"],
+    PCX: ["PCX 125", "PCX 150", "PCX Hybrid"],
+    ADV: ["ADV 150", "ADV 160"],
   };
 
   const handleChange = (e) => {
@@ -149,6 +154,11 @@ const Register = () => {
               <option value="Honda Beat">Honda Beat</option>
               <option value="Honda Pcx">Honda Pcx</option>
               <option value="Honda Adv">Honda Adv</option>
+              <option value="Dio">Dio</option>
+              <option value="Genio">Genio</option>
+              <option value="Airblade">Airblade</option>
+              <option value="PCX">PCX</option>
+              <option value="ADV">ADV</option>
             </select>
           </div>
         </div>
