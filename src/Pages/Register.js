@@ -8,13 +8,15 @@ const Register = () => {
     fullName: "",
     email: "",
     password: "",
-    controlNumber: "", // Changed from idNumber to controlNumber
+    controlNumber: "",
     plateNumber: "",
     motorcycleModel: "",
     motorcycleVersion: "",
   });
 
-  // Define the versions for each motorcycle model
+  const [modal, setModal] = useState({ show: false, messages: [], type: "" });
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+
   const motorcycleVersions = {
     "Honda Click": ["Click 125i", "Click 150i", "Click 160"],
     "Honda Beat": ["Beat Street", "Beat Fashion Sport"],
@@ -36,14 +38,86 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const checkDuplicates = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/users/check-duplicates", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: formData.userName,
+          email: formData.email,
+          controlNumber: formData.controlNumber,
+          plateNumber: formData.plateNumber,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Show modal for each individual error
+        if (data.userNameExists) {
+          setModal({ show: true, messages: ["Username already exists"], type: "error" });
+          return; // Stop checking further if there's a username error
+        }
+
+        if (data.emailExists) {
+          setModal({ show: true, messages: ["Email already exists"], type: "error" });
+          return; // Stop checking further if there's an email error
+        }
+
+        if (data.controlNumberExists) {
+          setModal({ show: true, messages: ["Control number already exists"], type: "error" });
+          return; // Stop checking further if there's a control number error
+        }
+
+        if (data.plateNumberExists) {
+          setModal({ show: true, messages: ["Plate number already exists"], type: "error" });
+          return; // Stop checking further if there's a plate number error
+        }
+      }
+    } catch (error) {
+      console.error("Error checking duplicates:", error);
+      setModal({ show: true, messages: ["An error occurred, please try again later."], type: "error" });
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate form fields
     if (Object.values(formData).some((field) => !field)) {
-      alert("Please fill out all fields");
+      setModal({ show: true, messages: ["Please fill out all fields"], type: "error" });
       return;
     }
-    console.log("Form Submitted:", formData);
+
+    await checkDuplicates(); // Check for duplicates one by one
+
+    // If no error, proceed with the registration
+    try {
+      const registerResponse = await fetch("http://localhost:8080/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (registerResponse.ok) {
+        setModal({ show: true, messages: ["User registered successfully!"], type: "success" });
+        setIsSubmitDisabled(false);
+      } else {
+        const error = await registerResponse.text();
+        setModal({ show: true, messages: [error], type: "error" });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setModal({ show: true, messages: ["An error occurred, please try again later."], type: "error" });
+    }
   };
+
+  const closeModal = () => setModal({ ...modal, show: false });
 
   return (
     <div className="register-container">
@@ -52,26 +126,20 @@ const Register = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>
-              <i className="fas fa-user"></i> Username
-            </label>
+            <label>Username</label>
             <input
               type="text"
               name="userName"
-              placeholder="Enter username"
               value={formData.userName}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
-            <label>
-              <i className="fas fa-user"></i> Full Name
-            </label>
+            <label>Full Name</label>
             <input
               type="text"
               name="fullName"
-              placeholder="Enter full name"
               value={formData.fullName}
               onChange={handleChange}
               required
@@ -81,26 +149,20 @@ const Register = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>
-              <i className="fas fa-envelope"></i> Email
-            </label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
-              placeholder="Enter email"
               value={formData.email}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
-            <label>
-              <i className="fas fa-lock"></i> Password
-            </label>
+            <label>Password</label>
             <input
               type="password"
               name="password"
-              placeholder="Enter password"
               value={formData.password}
               onChange={handleChange}
               required
@@ -110,26 +172,20 @@ const Register = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>
-              <i className="fas fa-id-card"></i> Control Number
-            </label>
+            <label>Control Number</label>
             <input
               type="text"
-              name="controlNumber" // Changed name to controlNumber
-              placeholder="Enter control number"
-              value={formData.controlNumber} // Updated value to match controlNumber
+              name="controlNumber"
+              value={formData.controlNumber}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
-            <label>
-              <i className="fas fa-car"></i> Plate Number
-            </label>
+            <label>Plate Number</label>
             <input
               type="text"
               name="plateNumber"
-              placeholder="Enter plate number"
               value={formData.plateNumber}
               onChange={handleChange}
               required
@@ -139,15 +195,12 @@ const Register = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>
-              <i className="fas fa-motorcycle"></i> Motorcycle Model
-            </label>
+            <label>Motorcycle Model</label>
             <select
               name="motorcycleModel"
               value={formData.motorcycleModel}
               onChange={handleChange}
               required
-              className="motorcycle-model-select"
             >
               <option value="">Select Motorcycle Model</option>
               <option value="Honda Click">Honda Click</option>
@@ -166,15 +219,12 @@ const Register = () => {
         {formData.motorcycleModel && (
           <div className="form-row">
             <div className="form-group">
-              <label>
-                <i className="fas fa-cogs"></i> Motorcycle Version
-              </label>
+              <label>Motorcycle Version</label>
               <select
                 name="motorcycleVersion"
                 value={formData.motorcycleVersion}
                 onChange={handleChange}
                 required
-                className="motorcycle-version-select"
               >
                 <option value="">Select Version</option>
                 {motorcycleVersions[formData.motorcycleModel].map((version) => (
@@ -187,13 +237,23 @@ const Register = () => {
           </div>
         )}
 
-        <button type="submit">Register</button>
+        <button type="submit" disabled={isSubmitDisabled}>Register</button>
 
         <p>Already registered?</p>
-        <Link to="/login" className="login-link">
-          Go to Login
-        </Link>
+        <Link to="/login">Go to Login</Link>
       </form>
+
+      {/* Modal Popup */}
+      {modal.show && (
+        <div className="modal-overlay">
+          <div className={`modal ${modal.type}`}>
+            {modal.messages.map((message, index) => (
+              <p key={index}>{message}</p>
+            ))}
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
