@@ -1,3 +1,4 @@
+/* Container for the landing page */
 .landing-container {
     font-family: Arial, sans-serif;
     display: flex;
@@ -9,12 +10,14 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
+    overflow: hidden; /* Prevent scrollbars */
 }
 
+/* Navbar styles */
 .navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start; /* Align logo and name to the left */
+    align-items: center; /* Vertically align logo and name */
     width: 100%;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.7); /* Dark transparent black */
@@ -25,32 +28,69 @@
     right: 0;
 }
 
+/* Logo and club name container */
 .navbar-logo {
     display: flex;
-    align-items: center;
+    align-items: center; /* Vertically align logo and club name */
+    justify-content: flex-start; /* Align content to the left */
 }
 
+/* Logo image */
 .logo-img {
     width: 50px;
     height: 50px;
-    margin-right: 10px;
+    margin-right: 10px; /* Adds space between the logo and the club name */
 }
 
+/* Club name styling */
 .club-name {
     font-size: 24px;
     color: #e07604;
     font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
 }
 
+/* Minglanilla logo styling */
+.minglanilla-logo {
+    width: 200px; /* Adjust width for suitable size */
+    height: 200px; /* Keep height same as width for a perfect circle */
+    border-radius: 50%; /* Make it a circle */
+    object-fit: cover; /* Ensure the image fits well inside the circle */
+    margin-bottom: 100px; /* Add spacing below the logo */
+    display: block;
+    margin-left: auto;
+    margin-right: auto; /* Center the logo */
+    animation: rotate 5s linear infinite; /* Apply spinning effect */
+    cursor: default; /* Remove cursor change on hover */
+    margin-top: 40px;
+}
+
+/* 3D spin animation */
+@keyframes rotate {
+    0% {
+        transform: rotateY(0deg); /* Initial rotation */
+    }
+    100% {
+        transform: rotateY(360deg); /* Full 360 degree rotation */
+    }
+}
+
+/* Apply perspective to create a 3D effect */
+.landing-container {
+    perspective: 1000px; /* Add perspective to the parent container */
+}
+
+/* Landing content section */
 .landing-content {
     text-align: center;
-    margin-top: 50px;
+    margin-top: -100px; /* Spacing from the navbar */
+
 }
 
 .landing-content h1 {
     font-size: 36px;
     color: #fff; /* White text for contrast */
-    font-size: xx-large;
     font-style: italic;
 }
 
@@ -60,9 +100,9 @@
     margin: 20px 0;
     font-size: x-large;
     font-style: italic;
-
 }
 
+/* Call-to-action buttons */
 .cta-buttons {
     margin-top: 20px;
 }
@@ -75,6 +115,7 @@
     transition: all 0.3s ease;
 }
 
+/* Join Now button */
 .cta-buttons button:first-child {
     background-color: #e07604;
     color: white;
@@ -82,9 +123,26 @@
     width: 200px;
 }
 
+/* Log In button */
 .cta-buttons button:last-child {
     background-color: #e07604;
     color: white;
     border-radius: 50px;
     margin-left: 10px;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 480px) {
+    .landing-content h1 {
+        font-size: 24px;
+    }
+
+    .landing-content p {
+        font-size: 16px;
+    }
+
+    .cta-buttons button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
 }

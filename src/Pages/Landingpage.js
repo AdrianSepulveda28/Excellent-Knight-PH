@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import logo from './assessment/excellent-knights-ph.png'; // './' refers to the same directory
+import mingnillaLogo from './assessment/Minglanilla.jpg'; // Add Mingnilla logo
 import './LandingPage.css';
 
 function LandingPage() {
@@ -23,11 +24,18 @@ function LandingPage() {
             </nav>
 
             <div className="landing-content">
-                <h1>Welcome to Excellent Knights PH</h1>
-                <p>Join our community of motorcycle enthusiasts, stay updated with events, and connect with other riders who share your passion.</p>
-                <div className="cta-buttons">
-                    <button onClick={handleRegister}>Join Now</button>
-                    <button onClick={handleLogin}>Already a Member? Log In</button>
+                <div className="welcome-text">
+                    <img
+                        src={mingnillaLogo}
+                        alt="Minglanilla Logo"
+                        className="minglanilla-logo"
+                    />
+                    <h1>Welcome to Excellent Knights PH</h1>
+                    <p>Join our community of motorcycle enthusiasts, stay updated with events, and connect with other riders who share your passion.</p>
+                    <div className="cta-buttons">
+                        <button onClick={handleRegister}>Join Now</button>
+                        <button onClick={handleLogin}>Already a Member? Log In</button>
+                    </div>
                 </div>
             </div>
         </div>
