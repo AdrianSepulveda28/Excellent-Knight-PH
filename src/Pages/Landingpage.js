@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import logo from './assessment/excellent-knights-ph.png'; // './' refers to the same directory
-import mingnillaLogo from './assessment/Minglanilla.jpg'; // Add Mingnilla logo
+import logo from './assessment/Club.png'; // './' refers to the same directory
+import mingnillaLogo from './assessment/Minglanilla.png'; // Add Mingnilla logo
 import './LandingPage.css';
 
 function LandingPage() {
